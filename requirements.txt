@@ -7,8 +7,8 @@ julius
 numpy
 sentencepiece
 spacy>=3.6.1
-torch
-torchaudio
+torch==2.4.0
+torchaudio==2.4.0
 huggingface_hub
 tqdm
 transformers>=4.31.0

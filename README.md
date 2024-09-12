@@ -6,18 +6,42 @@ audio tokens. We use [Audiocraft](https://github.com/facebookresearch/audiocraft
 
 ## Requirements
 
+First clone this repository and cd the root folder:
+```bash
+git clone https://github.com/adefossez/audio_mod_idessai.git
+cd audio_mod_idessai
+```
+
 Make sure to have an environment with `ffmpeg` installed, the easiest is with
-conda/mamba: `conda install -c conda-forge ffmpeg`. Then we install `audiocraft` with slightly
-different requirements to allow more recent versions of PyTorch:
+conda/mamba: `conda install -c conda-forge ffmpeg`.
 
-```
-# If you need a specific version of torch and cuda, first install it along with torchaudio, for instance
-pip install torch torchaudio
+Then we install `audiocraft` with slightly
+different requirements to allow more recent versions of PyTorch (especially on Colab).
+Note that I had some issues with python3.10 getting a bus error, so maybe try to use python3.12.
+
+```bash
+# If you need a specific version of cuda, first install it along with torchaudio, for instance
+# xformers can be a bit tricky to get when pytorch releases a new version, so we pin 2.4.0.
+pip install torch==2.4.0 torchaudio==2.4.0 xformers
 pip install -r requirements.txt
-pip install --no-deps audiocraft
+
+# If you want to run locally the notebook, and maybe have some VIM binding ;)
+pip install jupyter # jupyterlab-vim
 ```
 
 
-## Download the dataset
+## Setup
 
+Edit `audio_mod_idessai/config.py` with the proper URL.
 
+### Download the dataset
+
+```bash
+python -m audio_mod_idessai.config
+```
+
+### Launch notebook
+
+```bash
+jupyter notebook
+```
