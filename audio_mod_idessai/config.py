@@ -1,3 +1,5 @@
+# MIT License, copyright 2024 Alexandre Défossez.
+"""Config and setting up of the dataset."""
 import os
 import subprocess as sp
 from pathlib import Path
