@@ -4,6 +4,8 @@ This repository provides the code for my class at IDESSAI 2024 about auto-regres
 audio tokens. We use [Audiocraft](https://github.com/facebookresearch/audiocraft) to fine tune a pre-trained
 [MusicGen](https://arxiv.org/abs/2306.05284) model on a small dataset of tracks from a given style.
 
+If you want to follow on Colab, go to the [Audiocraft fine tuning colab](https://colab.research.google.com/drive/11z1M4Dvnpf06qarpFVlQv-e071xKQLQ4?usp=sharing).
+
 ## Requirements
 
 First clone this repository and cd the root folder:
