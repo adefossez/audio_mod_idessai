@@ -189,3 +189,25 @@ def add_lora_(module: nn.Module, r:int = 8, alpha: float = 1.0, min_numel: float
     module.register_forward_pre_hook(pre_hook)
     module.register_forward_hook(post_hook)
     return module
+
+
+def compute_cross_entropy(
+    logits: torch.Tensor, targets: torch.Tensor, mask: torch.Tensor
+) -> torch.Tensor:
+    """Compute cross entropy, hand-made, with masking support. We could leverage torch's one
+    but it is always fun to redo things, and sometimes can help with some issues!
+    """
+    B, K, T = targets.shape
+    assert logits.shape[:-1] == targets.shape
+
+    # CE with some masking
+    # remember CE is - sum_k p_gt(k) log(p_est(k))
+    # e.g. with p_gt = 1_{k=k0}
+    # CE = - log(p_est(k0)) = - log[e^logits(k0) / sum(e^logits(k))]
+    #                       = - logits(k0) + logsumexp(logits)
+
+    log_partition = torch.logsumexp(logits, dim=-1)
+    ce = log_partition - logits.gather(-1, targets[..., None])[..., 0]
+    ce = torch.where(mask, ce, torch.zeros_like(ce))
+    return ce
+
