@@ -47,7 +47,7 @@ class Checkpoint(torch.autograd.Function):
         with torch.set_grad_enabled(True):
             # We create leaf tensors to collect the output gradients.
             # We call them pseudo_tensors because they are pretending to be the input
-            # to `function` but are not directly
+            # to `function` but are not directly connected to the rest of computation graph.
             for tensor in ctx.saved_tensors:
                 pseudo_tensor = tensor.detach()
                 pseudo_tensor.requires_grad_(True)
@@ -63,6 +63,9 @@ class Checkpoint(torch.autograd.Function):
             res = ctx.function(*args)
             # The second forward with grad computation allows us to connect the input leaf tensors
             # inside pseudo_tensors, to the outputs of the function called.
+            # Note that this is not entirely efficient: we do not need to compute
+            # the output for the last operation in a layer, but only need to know how to
+            # it formally! Yet I don't know how to leverage that in the general case.
         if not isinstance(res, tuple):
             res = (res,)
         # Now we just ask Torch to compute the derivative of `res` given the gradient coming from above
