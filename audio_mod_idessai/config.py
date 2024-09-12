@@ -10,12 +10,12 @@ def fatal(msg):
 
 
 DATASET_ROOT = Path("./data")
-DATASET_URL = Path("TO_FILL")
+DATASET_URL = "TO_FILL"
 
 EGS_FILE = DATASET_ROOT / 'tracks.jsonl'
 
 if 'DATASET_URL' in os.environ:
-    DATASET_URL = Path(os.environ['DATASET_URL'])
+    DATASET_URL = os.environ['DATASET_URL']
 
 
 def prepare_dataset():
