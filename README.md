@@ -29,6 +29,13 @@ pip install -r requirements.txt
 pip install jupyter # jupyterlab-vim
 ```
 
+Now let's install clone audiocraft
+```bash
+git submodule init
+git submodule update
+pip install --no-deps -e audiocraft
+```
+
 
 ## Setup
 
